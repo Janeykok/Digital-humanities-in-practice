@@ -1,0 +1,101 @@
+#english
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+library(forcats)
+library(scales)
+
+#number of pages per year nom
+g1 = ggplot(data = data_nom, mapping = aes(x = factor(Jaar), y = Paginas))
+g1 + geom_bar(stat = "identity", fill = "#030334") +theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                          panel.border = element_blank(),
+                                                          panel.grid.major = element_blank(),
+                                                          panel.background = element_rect(fill = "#E0E7EA",
+                                                                                          size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                                                                 axis.text.y = element_text(size = 10,face = "bold"),
+                                                                                 axis.text.x = element_text(size = 10,face = 'bold'),
+                                                                                 axis.title.y = element_text( size=12, face="bold"),
+                                                                                 axis.title.x = element_text( size=12, face="bold")) + facet_grid(~Bron) + theme(legend.position = "none") + labs(title = "Number of pages per year", x = 'Year', y = "Pages")
+
+#Size of documents expressed in number of pages per year NOM
+p8 = ggplot(data = data_nom, mapping = aes(x = factor(Jaar), y = Paginas, fill=factor(Jaar)))
+p8 + geom_bar(stat = "identity", fill = "#030334") + theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                           panel.border = element_blank(),
+                                                           panel.grid.major = element_blank(),
+                                                           panel.background = element_rect(fill = "#E0E7EA",
+                                                                                           size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                         axis.text.y = element_text(size = 10,face = "bold"),
+                                         axis.text.x = element_text(size = 10,face = 'bold'),
+                                         axis.title.y = element_text( size=12, face="bold"),
+                                         axis.title.x = element_text( size=12, face="bold"))+ facet_grid(~Bron) + labs(fill = "NOM",title = "Size of documents expressed in number of pages per year",x = 'Year', y = "Number of pages") 
+
+
+
+
+#Number of references per year NOM
+g3 = ggplot(data = data_nom, mapping = aes(x = factor(Jaar), y = Aantal_verwijzingen))
+g3+ geom_bar(stat = "identity", fill = "#030334") +theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                         panel.border = element_blank(),
+                                                         panel.grid.major = element_blank(),
+                                                         panel.background = element_rect(fill = "#E0E7EA",
+                                                                                         size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                       axis.text.y = element_text(size = 10, face = "bold"),
+                                       axis.text.x = element_text(size = 10, face = "bold"),
+                                       axis.title.y = element_text( size=12, face="bold"),
+                                       axis.title.x = element_text( size=12, face="bold")) + facet_grid(~Bron) + theme(legend.position = "none") + labs(title = "Number of references per year", y = 'Number of references', x= "Year")
+
+
+#Number of pages per source, per year
+g1a = ggplot(data = data, mapping = aes(x = factor(Jaar), y = Paginas, fill = factor(Bron)))
+g1a + geom_bar(stat = "identity")+ scale_fill_brewer(palette = "Blues") +theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                                               panel.border = element_blank(),
+                                                                               panel.grid.major = element_blank(),
+                                                                               panel.background = element_rect(fill = "#E0E7EA",
+                                                                                                               size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                                                                  axis.text.y = element_text(size = 10, face = "bold"),
+                                                                                  axis.text.x = element_text(size = 10,face = "bold"),
+                                                                                  axis.title.y = element_text( size=12, face="bold"),
+                                                                                  axis.title.x = element_text( size=12, face="bold")) + facet_wrap(~ Bron) + theme(legend.position = "none") + labs(title = "Number of pages per year", x = 'Year', y = "Pages")
+
+
+#Number of references per source, per year
+p3a = ggplot(data = data, mapping = aes(x = factor(Jaar), y = Aantal_verwijzingen, fill=factor(Bron)))
+p3a + geom_bar(stat = "identity")+ scale_fill_brewer(palette = "Blues") + theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                                                panel.border = element_blank(),
+                                                                                panel.grid.major = element_blank(),
+                                                                                panel.background = element_rect(fill = "#E0E7EA",
+                                                                                                                size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                          axis.text.y = element_text(size = 10,face = "bold"),
+                                          axis.text.x = element_text(size = 10,face = "bold"),
+                                          axis.title.y = element_text( size=12, face="bold"),
+                                          axis.title.x = element_text( size=12, face="bold")) + facet_wrap(~ Bron) + theme(legend.position = "none") + labs(title = 'Number of references per year', y = 'Number of references', x= "Year")
+
+
+
+
+#Number of documents 
+p8a = ggplot(data = data, mapping = aes(x = factor(Jaar), y = Paginas, fill=Bron))
+p8a + geom_bar(stat = "identity")+ scale_fill_brewer(palette = "Blues")  + theme(strip.text.x = element_text(face = "bold", color = "white"),strip.background = element_rect(color="black", fill="#464646"),
+                                                                                 panel.border = element_blank(),
+                                                                                 panel.grid.major = element_blank(),
+                                                                                 panel.background = element_rect(fill = "#E0E7EA",
+                                                                                                                 size = 2, linetype = "solid"),plot.title = element_text(face = "bold"),
+                                          axis.text.y = element_text(size = 10,face = "bold"),
+                                          axis.text.x = element_text(size = 10,face = 'bold') ,
+                                          axis.title.x = element_text( size=12, face="bold"),
+                                          axis.title.y = element_text( size=12, face="bold")) + labs(fill = 'Source',title = "Size of documents expressed in number of pages per year",x = 'Year', y = "Number of pages")
+
+
+
+#lijngrafieken van 2009,2014,2019
+J6 = ggplot(data = data, aes(x = Maand, y = Paginas, group = factor(Jaar), colour = factor(Jaar)))
+J6  +
+  facet_wrap(~ Bron , scales = 'free') +
+  stat_summary(geom= "line", fun.y="sum") + scale_x_discrete(limits = month.abb) + labs(col = 'Year', x = 'Months', y = 'Pages') + labs(title = "Number of pages per month") + theme(plot.title = element_text(face = "bold",hjust = 0.5))
+
+
+
+
+
+
+
